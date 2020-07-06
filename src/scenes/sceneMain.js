@@ -33,6 +33,10 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 61,
       frameHeight: 51,
     });
+
+    this.load.audio('sndExpLong', 'assets/sndExpLong.ogg');
+    this.load.audio('sndExpMid', 'assets/sndExpMid.ogg');
+    this.load.audio('sndExpShort', 'assets/sndExpShort.ogg');
   }
 
   create() {
@@ -73,6 +77,14 @@ class SceneMain extends Phaser.Scene {
       frameRate: 30,
       repeat: -1,
     });
+
+    this.sfx = {
+      explosions: [
+        this.sound.add('sndExpLong'),
+        this.sound.add('sndExpMid'),
+        this.sound.add('sndExpShort'),
+      ]
+    }
 
     this.player = new Player(
       this,
