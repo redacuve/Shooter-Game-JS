@@ -1,5 +1,8 @@
 import Phaser from "phaser";
 import Player from "../entities/player";
+import EnemyHeavy from "../entities/enemyBom";
+import EnemySm from "../entities/enemySm";
+import EnemyMedium from "../entities/enemyMid";
 
 class SceneMain extends Phaser.Scene {
   constructor() {
@@ -8,6 +11,8 @@ class SceneMain extends Phaser.Scene {
 
   preload() {
     this.load.image("sprBg0", "assets/sprBg0.png");
+    this.load.image("sprGunShotEnemy", "assets/sprGunShotEnemy.png");
+
     this.load.spritesheet("sprPlayerP50D", "assets/sprPlayerP50D.png", {
       frameWidth: 59,
       frameHeight: 53,
@@ -111,6 +116,39 @@ class SceneMain extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
     this.sfx.engines[0].play({ loop: true });
+
+    this.enemies = this.add.group();
+    this.enemyGunShots = this.add.group();
+    this.playerGunShots = this.add.group();
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        let enemy = null;
+        if (Phaser.Math.Between(0, 10) >= 4) {
+          enemy = new EnemySm(
+            this,
+            Phaser.Math.Between(0, this.game.config.width),
+            0
+          );
+        } else if (Phaser.Math.Between(0, 10) >= 5) {
+          enemy = new EnemyMedium(
+            this,
+            Phaser.Math.Between(0, this.game.config.width),
+            0
+          );
+        } else {
+          enemy = new EnemyHeavy(
+            this,
+            Phaser.Math.Between(0, this.game.config.width),
+            0
+          );
+        }
+        this.enemies.add(enemy);
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
