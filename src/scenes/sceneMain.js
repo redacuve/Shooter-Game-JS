@@ -12,6 +12,14 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 59,
       frameHeight: 53,
     });
+    this.load.spritesheet("sprPlayerP47D", "assets/sprPlayerP47D.png", {
+      frameWidth: 57,
+      frameHeight: 51,
+    });
+    this.load.spritesheet("sprPlayerP39", "assets/sprPlayerP39.png", {
+      frameWidth: 58,
+      frameHeight: 50,
+    });
   }
 
   create() {
@@ -21,13 +29,25 @@ class SceneMain extends Phaser.Scene {
       frameRate: 30,
       repeat: -1,
     });
+    this.anims.create({
+      key: "sprPlayerP47D",
+      frames: this.anims.generateFrameNumbers("sprPlayerP47D"),
+      frameRate: 30,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "sprPlayerP39",
+      frames: this.anims.generateFrameNumbers("sprPlayerP39"),
+      frameRate: 30,
+      repeat: -1,
+    });
 
     this.player = new Player(
       this,
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,
-      "sprPlayerP50D",
-      "sprPlayerP50D"
+      "sprPlayerP39",
+      "sprPlayerP39"
     );
 
     this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
