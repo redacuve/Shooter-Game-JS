@@ -34,9 +34,11 @@ class SceneMain extends Phaser.Scene {
       frameHeight: 51,
     });
 
-    this.load.audio('sndExpLong', 'assets/sndExpLong.ogg');
-    this.load.audio('sndExpMid', 'assets/sndExpMid.ogg');
-    this.load.audio('sndExpShort', 'assets/sndExpShort.ogg');
+    this.load.audio("sndExpLong", "assets/sndExpLong.ogg");
+    this.load.audio("sndExpMid", "assets/sndExpMid.ogg");
+    this.load.audio("sndExpShort", "assets/sndExpShort.ogg");
+
+    this.load.audio("sndP50DEng", "assets/sndP50DEng.wav");
   }
 
   create() {
@@ -80,11 +82,12 @@ class SceneMain extends Phaser.Scene {
 
     this.sfx = {
       explosions: [
-        this.sound.add('sndExpLong'),
-        this.sound.add('sndExpMid'),
-        this.sound.add('sndExpShort'),
-      ]
-    }
+        this.sound.add("sndExpLong"),
+        this.sound.add("sndExpMid"),
+        this.sound.add("sndExpShort"),
+      ],
+      engines: [this.sound.add("sndP50DEng")],
+    };
 
     this.player = new Player(
       this,
@@ -107,6 +110,7 @@ class SceneMain extends Phaser.Scene {
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
+    this.sfx.engines[0].play({ loop: true });
   }
 
   update() {
