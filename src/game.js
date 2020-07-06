@@ -5,7 +5,7 @@ import SceneGameOver from "./scenes/sceneGameOver";
 
 const config = {
   type: Phaser.AUTO,
-  width: 480,
+  width: 855,
   height: 640,
   backgroundColor: 'e5b374',
   physics: {

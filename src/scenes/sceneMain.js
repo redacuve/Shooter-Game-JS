@@ -20,6 +20,19 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 58,
       frameHeight: 50,
     });
+
+    this.load.spritesheet("sprEneBom", "assets/sprEneBom.png", {
+      frameWidth: 143,
+      frameHeight: 99,
+    });
+    this.load.spritesheet("sprEneMid", "assets/sprEneMid.png", {
+      frameWidth: 79,
+      frameHeight: 55,
+    });
+    this.load.spritesheet("sprEneSm", "assets/sprEneSm.png", {
+      frameWidth: 61,
+      frameHeight: 51,
+    });
   }
 
   create() {
@@ -42,18 +55,43 @@ class SceneMain extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "sprEneBom",
+      frames: this.anims.generateFrameNumbers("sprEneBom"),
+      frameRate: 30,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "sprEneMid",
+      frames: this.anims.generateFrameNumbers("sprEneMid"),
+      frameRate: 30,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "sprEneSm",
+      frames: this.anims.generateFrameNumbers("sprEneSm"),
+      frameRate: 30,
+      repeat: -1,
+    });
+
     this.player = new Player(
       this,
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,
-      "sprPlayerP39",
-      "sprPlayerP39"
+      "sprPlayerP50D",
+      "sprPlayerP50D"
     );
 
     this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-    this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-    this.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-    this.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    this.keyDown = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.DOWN
+    );
+    this.keyLeft = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.LEFT
+    );
+    this.keyRight = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.RIGHT
+    );
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
