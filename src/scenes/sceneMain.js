@@ -12,6 +12,7 @@ class SceneMain extends Phaser.Scene {
   preload() {
     this.load.image("sprBg0", "assets/sprBg0.png");
     this.load.image("sprGunShotEnemy", "assets/sprGunShotEnemy.png");
+    this.load.image("sprGunShotPlayer", "assets/sprGunShotPlayer.png");
 
     this.load.spritesheet("sprPlayerP50D", "assets/sprPlayerP50D.png", {
       frameWidth: 59,
@@ -44,6 +45,8 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndExpShort", "assets/sndExpShort.ogg");
 
     this.load.audio("sndP50DEng", "assets/sndP50DEng.wav");
+
+    this.load.audio("sndPlayerGunShot", "assets/sndPlayerGunShot.wav");
   }
 
   create() {
@@ -92,6 +95,7 @@ class SceneMain extends Phaser.Scene {
         this.sound.add("sndExpShort"),
       ],
       engines: [this.sound.add("sndP50DEng")],
+      playerGunShot: this.sound.add("sndPlayerGunShot"),
     };
 
     this.player = new Player(
@@ -164,6 +168,16 @@ class SceneMain extends Phaser.Scene {
       this.player.moveLeft();
     } else if (this.keyRight.isDown) {
       this.player.moveRight();
+    }
+
+    if (this.keySpace.isDown) {
+      this.player.setData("isShooting", true);
+    } else {
+      this.player.setData(
+        "timerShootTick",
+        this.player.getData("timerShootDelay") - 1
+      );
+      this.player.setData("isShooting", false);
     }
   }
 }

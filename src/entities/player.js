@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Entity from "./entity";
+import PlayerGunShot from "./playerGunShot";
 
 class Player extends Entity {
   constructor(scene, x, y, key, selected) {
@@ -32,6 +33,18 @@ class Player extends Entity {
 
     this.x = Phaser.Math.Clamp(this.x, 0, this.scene.game.config.width);
     this.y = Phaser.Math.Clamp(this.y, 0, this.scene.game.config.height);
+
+    if (this.getData("isShooting")) {
+      if (this.getData("timerShootTick") < this.getData("timerShootDelay")) {
+        this.setData("timerShootTick", this.getData("timerShootTick") + 1);
+      } else {
+        const gunShot = new PlayerGunShot(this.scene, this.x, this.y);
+        this.scene.playerGunShots.add(gunShot);
+
+        this.scene.sfx.playerGunShot.play();
+        this.setData("timerShootTick", 0);
+      }
+    }
   }
 }
 
