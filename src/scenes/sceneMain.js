@@ -14,6 +14,11 @@ class SceneMain extends Phaser.Scene {
     this.load.image("sprGunShotEnemy", "assets/sprGunShotEnemy.png");
     this.load.image("sprGunShotPlayer", "assets/sprGunShotPlayer.png");
 
+    this.load.spritesheet("sprExplosion", "assets/sprExplosion.png", {
+      frameWidth: 65,
+      frameHeight: 65,
+    });
+
     this.load.spritesheet("sprPlayerP50D", "assets/sprPlayerP50D.png", {
       frameWidth: 59,
       frameHeight: 53,
@@ -50,6 +55,13 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
+    this.anims.create({
+      key: "sprExplosion",
+      frames: this.anims.generateFrameNames("sprExplosion"),
+      frameRate: 30,
+      repeat: 0,
+    });
+
     this.anims.create({
       key: "sprPlayerP50D",
       frames: this.anims.generateFrameNumbers("sprPlayerP50D"),
@@ -124,6 +136,40 @@ class SceneMain extends Phaser.Scene {
     this.enemies = this.add.group();
     this.enemyGunShots = this.add.group();
     this.playerGunShots = this.add.group();
+
+    this.physics.add.collider(
+      this.playerGunShots,
+      this.enemies,
+      (playerGunShot, enemy) => {
+        if (enemy) {
+          if (enemy.onDestroy !== undefined) {
+            enemy.onDestroy();
+          }
+
+          enemy.explode(true);
+          playerGunShot.destroy();
+        }
+      }
+    );
+
+    this.physics.add.collider(this.player, this.enemies, (player, enemy) => {
+      if (!player.getData("isDead") && !enemy.getData("isDead")) {
+        player.explode(false);
+        enemy.explode(true);
+      }
+    });
+
+    this.physics.add.collider(
+      this.player,
+      this.enemyGunShots,
+      (player, gunShot) => {
+        if (!player.getData("isDead") && !gunShot.getData("isDead")) {
+          player.explode(false);
+          gunShot.destroy();
+          player.onDestroy();
+        }
+      }
+    );
 
     this.time.addEvent({
       delay: 1000,
@@ -203,28 +249,29 @@ class SceneMain extends Phaser.Scene {
   }
 
   update() {
-    this.player.update();
+    if (!this.player.getData("isDead")) {
+      this.player.update();
+      if (this.keyUp.isDown) {
+        this.player.moveUp();
+      } else if (this.keyDown.isDown) {
+        this.player.moveDown();
+      }
 
-    if (this.keyUp.isDown) {
-      this.player.moveUp();
-    } else if (this.keyDown.isDown) {
-      this.player.moveDown();
-    }
+      if (this.keyLeft.isDown) {
+        this.player.moveLeft();
+      } else if (this.keyRight.isDown) {
+        this.player.moveRight();
+      }
 
-    if (this.keyLeft.isDown) {
-      this.player.moveLeft();
-    } else if (this.keyRight.isDown) {
-      this.player.moveRight();
-    }
-
-    if (this.keySpace.isDown) {
-      this.player.setData("isShooting", true);
-    } else {
-      this.player.setData(
-        "timerShootTick",
-        this.player.getData("timerShootDelay") - 1
-      );
-      this.player.setData("isShooting", false);
+      if (this.keySpace.isDown) {
+        this.player.setData("isShooting", true);
+      } else {
+        this.player.setData(
+          "timerShootTick",
+          this.player.getData("timerShootDelay") - 1
+        );
+        this.player.setData("isShooting", false);
+      }
     }
 
     this.checkFrustumCulling();
