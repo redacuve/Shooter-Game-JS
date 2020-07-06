@@ -155,6 +155,53 @@ class SceneMain extends Phaser.Scene {
     });
   }
 
+  checkFrustumCulling() {
+    for (let i = 0; i < this.enemies.getChildren().length; i += 1) {
+      const enemy = this.enemies.getChildren()[i];
+      if (
+        enemy.x < -enemy.displayWidth ||
+        enemy.x > this.game.config.width + enemy.displayWidth ||
+        enemy.y < -enemy.displatHeight * 4 ||
+        enemy.y > this.game.config.height + enemy.displayHeight
+      ) {
+        if (enemy) {
+          if (enemy.onDestroy !== undefined) {
+            enemy.onDestroy();
+          }
+          enemy.destroy();
+        }
+      }
+    }
+
+    for (let i = 0; i < this.enemyGunShots.getChildren().length; i += 1) {
+      const gunShot = this.enemyGunShots.getChildren()[i];
+      if (
+        gunShot.x < -gunShot.displayWidth ||
+        gunShot.x > this.game.config.width + gunShot.displayWidth ||
+        gunShot.y < -gunShot.displayHeight * 4 ||
+        gunShot.y > this.game.config.height + gunShot.displayHeight
+      ) {
+        if (gunShot) {
+          gunShot.destroy();
+        }
+      }
+    }
+
+    for (let i = 0; i < this.playerGunShots.getChildren().length; i += 1) {
+      const gunShot = this.playerGunShots.getChildren()[i];
+      if (
+        gunShot.x < -gunShot.displayWidth ||
+        gunShot.x > this.game.config.width + gunShot.displayWidth ||
+        gunShot.y < -gunShot.displayHeight * 4 ||
+        gunShot.y > this.game.config.height + gunShot.displayHeight
+      ) {
+        if (gunShot) {
+          gunShot.destroy();
+        }
+      }
+    }
+  }
+
   update() {
     this.player.update();
 
@@ -179,6 +226,8 @@ class SceneMain extends Phaser.Scene {
       );
       this.player.setData("isShooting", false);
     }
+
+    this.checkFrustumCulling();
   }
 }
 

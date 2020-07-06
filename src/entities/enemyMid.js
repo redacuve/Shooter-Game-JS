@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Entity from "./entity";
-import EnemyGunShot from './enemyGunShot';
+import EnemyGunShot from "./enemyGunShot";
 
 class EnemyMedium extends Entity {
   constructor(scene, x, y) {
@@ -16,6 +16,14 @@ class EnemyMedium extends Entity {
       callbackScope: this,
       loop: true,
     });
+  }
+  
+  onDestroy() {
+    if (this.shootTimer !== undefined) {
+      if (this.shootTimer) {
+        this.shootTimer.remove(false);
+      }
+    }
   }
 }
 
