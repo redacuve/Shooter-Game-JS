@@ -49,9 +49,9 @@ class Player extends Entity {
 
   onDestroy() {
     this.scene.time.addEvent({
-      delay: 1500,
+      delay: 5000,
       callback: () => {
-        console.log("Game Over!");
+        this.scene.scene.start("SceneGameOver");
       },
       callbackScope: this,
       loop: false,

@@ -57,6 +57,8 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndP47Eng", "assets/sndP47Eng.wav");
     this.load.audio("sndP39Eng", "assets/sndP39Eng.wav");
 
+    this.load.audio("sndGameOver", "assets/sndGameOver.wav");
+
     this.load.audio("sndPlayerGunShot", "assets/sndPlayerGunShot.wav");
   }
 
@@ -141,6 +143,7 @@ class SceneMain extends Phaser.Scene {
         this.sound.add("sndP39Eng"),
       ],
       playerGunShot: this.sound.add("sndPlayerGunShot"),
+      gameOver: this.sound.add("sndGameOver"),
     };
 
     this.player = new Player(
@@ -191,7 +194,9 @@ class SceneMain extends Phaser.Scene {
       if (!player.getData("isDead") && !enemy.getData("isDead")) {
         player.explode(false);
         this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].stop();
+        this.sfx.gameOver.play();
         enemy.explode(true);
+        player.onDestroy();
       }
     });
 
@@ -201,6 +206,7 @@ class SceneMain extends Phaser.Scene {
       (player, gunShot) => {
         if (!player.getData("isDead") && !gunShot.getData("isDead")) {
           this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].stop();
+          this.sfx.gameOver.play();
           player.explode(false);
           gunShot.destroy();
           player.onDestroy();
