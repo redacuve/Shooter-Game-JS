@@ -8,7 +8,6 @@ class SceneGameOver extends Phaser.Scene {
     this.score = data.score;
   }
 
-
   preload() {
     this.load.image("sprBtnRestart", "content/sprBtnRestart.png");
     this.load.image("sprBtnRestartHover", "content/sprBtnRestartHover.png");
@@ -59,19 +58,24 @@ class SceneGameOver extends Phaser.Scene {
     );
 
     this.title = this.add.text(this.game.config.width * 0.5, 128, "GAME OVER", {
-      fontFamily: "monospace",
-      fontSize: 48,
-      fontStyle: "bold",
+      fontFamily: "Player2",
+      fontSize: "48px",
+      fontStyle: "normal",
       color: "#ffffffff",
       align: "center",
     });
-    this.subtitle = this.add.text(this.game.config.width * 0.5, 195, "Your Score: " + this.score,{
-      fontFamily: 'monospace',
-      fontSize: 18,
-      fontStyle: 'bold',
-      color: '#fff',
-      align: 'center',
-    })
+    this.subtitle = this.add.text(
+      this.game.config.width * 0.5,
+      195,
+      "Your Score: " + this.score,
+      {
+        fontFamily: "Player2",
+        fontSize: "18px",
+        fontStyle: "normal",
+        color: "#fff",
+        align: "center",
+      }
+    );
 
     this.title.setOrigin(0.5);
     this.subtitle.setOrigin(0.5);

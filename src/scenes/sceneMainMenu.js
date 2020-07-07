@@ -213,9 +213,8 @@ class SceneMainMenu extends Phaser.Scene {
       128,
       "WAR DESERT SHOOTER",
       {
-        fontFamily: "monospace",
-        fontSize: 48,
-        fontStyle: "bold",
+        fontFamily: "Player2",
+        fontSize: "48px",
         color: "#ffbb00",
         align: "center",
       }
@@ -228,8 +227,8 @@ class SceneMainMenu extends Phaser.Scene {
       200,
       "Select Your Plane",
       {
-        fontFamily: "monospace",
-        fontSize: 30,
+        fontFamily: "Player2",
+        fontSize: "30px",
         color: "#faf20f",
         align: "center",
       }

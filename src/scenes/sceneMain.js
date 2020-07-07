@@ -79,7 +79,7 @@ class SceneMain extends Phaser.Scene {
   addToScore(points) {
     if (points > 0) {
       this.score += points;
-      this.scoreText.setText("score: " + this.score);
+      this.scoreText.setText("SCORE: " + this.score);
     }
   }
 
@@ -151,13 +151,6 @@ class SceneMain extends Phaser.Scene {
     );
     this.dunes.setOrigin(0, 0);
     this.dunes.setScrollFactor(0);
-
-    this.score = 0;
-    this.scoreText = this.add.text(16, 16, "score: " + this.score, {
-      fontSize: "43px",
-      fill: "#fff",
-      fontFamily: "monospace",
-    });
 
     this.sfx = {
       explosions: [
@@ -273,6 +266,19 @@ class SceneMain extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    this.score = 0;
+    this.scoreText = this.add.text(
+      16,
+      this.game.config.height - 51,
+      "SCORE: " + this.score,
+      {
+        fontFamily: "Player2",
+        fontSize: "25px",
+        color: "#fff",
+        align: "center",
+      }
+    );
   }
 
   checkFrustumCulling() {

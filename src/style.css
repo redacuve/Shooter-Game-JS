@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "Player2";
+  src: url("./fonts/PressStart2P-Regular.ttf");
+  font-weight: 400;
+  font-weight: normal;
+}
+
+#parr {
+    font-family: "Player2";
+}
