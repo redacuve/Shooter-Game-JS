@@ -9,13 +9,11 @@ class SceneMain extends Phaser.Scene {
     super({ key: "SceneMain" });
   }
 
-  init(data){
-    //console.log(data.playerSelection);
+  init(data) {
     this.playerSelection = data.playerSelection;
   }
 
   preload() {
-    //this.load.image("sprBg0", "assets/sprBg0.png");
     this.load.image("dunes", "assets/dunes.png");
     this.load.image("sprGunShotEnemy", "assets/sprGunShotEnemy.png");
     this.load.image("sprGunShotPlayer", "assets/sprGunShotPlayer.png");
@@ -56,8 +54,23 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndExpShort", "assets/sndExpShort.ogg");
 
     this.load.audio("sndP51DEng", "assets/sndP51DEng.wav");
+    this.load.audio("sndP47Eng", "assets/sndP47Eng.wav");
+    this.load.audio("sndP39Eng", "assets/sndP39Eng.wav");
 
     this.load.audio("sndPlayerGunShot", "assets/sndPlayerGunShot.wav");
+  }
+
+  getIndexEngineSound(str) {
+    switch (str) {
+      case "sprPlayerP51D":
+        return 0;
+      case "sprPlayerP47":
+        return 1;
+      case "sprPlayerP39":
+        return 2;
+      default:
+        return 0;
+    }
   }
 
   create() {
@@ -106,8 +119,14 @@ class SceneMain extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.dunes = this.add.tileSprite(0,0,this.game.config.width,this.game.config.height, 'dunes');
-    this.dunes.setOrigin(0,0);
+    this.dunes = this.add.tileSprite(
+      0,
+      0,
+      this.game.config.width,
+      this.game.config.height,
+      "dunes"
+    );
+    this.dunes.setOrigin(0, 0);
     this.dunes.setScrollFactor(0);
 
     this.sfx = {
@@ -116,7 +135,11 @@ class SceneMain extends Phaser.Scene {
         this.sound.add("sndExpMid"),
         this.sound.add("sndExpShort"),
       ],
-      engines: [this.sound.add("sndP51DEng")],
+      engines: [
+        this.sound.add("sndP51DEng"),
+        this.sound.add("sndP47Eng"),
+        this.sound.add("sndP39Eng"),
+      ],
       playerGunShot: this.sound.add("sndPlayerGunShot"),
     };
 
@@ -141,7 +164,10 @@ class SceneMain extends Phaser.Scene {
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
-    this.sfx.engines[0].play({ loop: true });
+
+    this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].play({
+      loop: true,
+    });
 
     this.enemies = this.add.group();
     this.enemyGunShots = this.add.group();
@@ -155,7 +181,6 @@ class SceneMain extends Phaser.Scene {
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
           }
-
           enemy.explode(true);
           playerGunShot.destroy();
         }
@@ -165,6 +190,7 @@ class SceneMain extends Phaser.Scene {
     this.physics.add.collider(this.player, this.enemies, (player, enemy) => {
       if (!player.getData("isDead") && !enemy.getData("isDead")) {
         player.explode(false);
+        this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].stop();
         enemy.explode(true);
       }
     });
@@ -174,6 +200,7 @@ class SceneMain extends Phaser.Scene {
       this.enemyGunShots,
       (player, gunShot) => {
         if (!player.getData("isDead") && !gunShot.getData("isDead")) {
+          this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].stop();
           player.explode(false);
           gunShot.destroy();
           player.onDestroy();

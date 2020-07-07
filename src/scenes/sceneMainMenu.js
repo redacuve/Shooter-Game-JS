@@ -23,6 +23,10 @@ class SceneMainMenu extends Phaser.Scene {
     this.load.image("sprBtnP39", "assets/sprBtnP39.png");
     this.load.image("sprBtnP39Selected", "assets/sprBtnP39Selected.png");
 
+    this.load.audio("sndP51DEng", "assets/sndP51DEng.wav");
+    this.load.audio("sndP47Eng", "assets/sndP47Eng.wav");
+    this.load.audio("sndP39Eng", "assets/sndP39Eng.wav");
+
     this.load.audio("sndBtnOver", "assets/sndBtnOver.wav");
     this.load.audio("sndBtnDown", "assets/sndBtnDown.wav");
   }
@@ -42,6 +46,11 @@ class SceneMainMenu extends Phaser.Scene {
     this.sfx = {
       btnOver: this.sound.add("sndBtnOver"),
       btnDown: this.sound.add("sndBtnDown"),
+      engines: [
+        this.sound.add("sndP51DEng"),
+        this.sound.add("sndP47Eng"),
+        this.sound.add("sndP39Eng"),
+      ],
     };
 
     this.btnP51D = this.add.sprite(
@@ -70,12 +79,14 @@ class SceneMainMenu extends Phaser.Scene {
       "pointerover",
       () => {
         this.btnP51D.setScale(15 * 0.1);
+        this.sfx.engines[0].play();
       },
       this
     );
 
     this.btnP51D.on("pointerout", () => {
       this.btnP51D.setScale(1);
+      this.sfx.engines[0].stop();
     });
 
     this.btnP51D.on(
@@ -101,12 +112,14 @@ class SceneMainMenu extends Phaser.Scene {
       "pointerover",
       () => {
         this.btnP47.setScale(15 * 0.1);
+        this.sfx.engines[1].play();
       },
       this
     );
 
     this.btnP47.on("pointerout", () => {
       this.btnP47.setScale(1);
+      this.sfx.engines[1].stop();
     });
 
     this.btnP47.on(
@@ -132,12 +145,14 @@ class SceneMainMenu extends Phaser.Scene {
       "pointerover",
       () => {
         this.btnP39.setScale(15 * 0.1);
+        this.sfx.engines[2].play();
       },
       this
     );
 
     this.btnP39.on("pointerout", () => {
       this.btnP39.setScale(1);
+      this.sfx.engines[2].stop();
     });
 
     this.btnP39.on(
