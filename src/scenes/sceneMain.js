@@ -7,6 +7,7 @@ import EnemyMedium from "../entities/enemyMid";
 class SceneMain extends Phaser.Scene {
   constructor() {
     super({ key: "SceneMain" });
+    this.score = 0;
   }
 
   init(data) {
@@ -75,6 +76,26 @@ class SceneMain extends Phaser.Scene {
     }
   }
 
+  addToScore(points) {
+    if (points > 0) {
+      this.score += points;
+      this.scoreText.setText("score: " + this.score);
+    }
+  }
+
+  getScorePoints(enemy) {
+    switch (enemy.texture.key) {
+      case "sprEneSm":
+        return 50;
+      case "sprEneMid":
+        return 75;
+      case "sprEneBom":
+        return 100;
+      default:
+        return 0;
+    }
+  }
+
   create() {
     this.anims.create({
       key: "sprExplosion",
@@ -131,6 +152,13 @@ class SceneMain extends Phaser.Scene {
     this.dunes.setOrigin(0, 0);
     this.dunes.setScrollFactor(0);
 
+    this.score = 0;
+    this.scoreText = this.add.text(16, 16, "score: " + this.score, {
+      fontSize: "43px",
+      fill: "#fff",
+      fontFamily: "monospace",
+    });
+
     this.sfx = {
       explosions: [
         this.sound.add("sndExpLong"),
@@ -181,11 +209,12 @@ class SceneMain extends Phaser.Scene {
       this.enemies,
       (playerGunShot, enemy) => {
         if (enemy) {
+          this.addToScore(this.getScorePoints(enemy));
           if (enemy.onDestroy !== undefined) {
             enemy.onDestroy();
           }
-          enemy.explode(true);
           playerGunShot.destroy();
+          enemy.explode(true);
         }
       }
     );
@@ -205,7 +234,9 @@ class SceneMain extends Phaser.Scene {
       this.enemyGunShots,
       (player, gunShot) => {
         if (!player.getData("isDead") && !gunShot.getData("isDead")) {
-          this.sfx.engines[this.getIndexEngineSound(this.playerSelection)].stop();
+          this.sfx.engines[
+            this.getIndexEngineSound(this.playerSelection)
+          ].stop();
           this.sfx.gameOver.play();
           player.explode(false);
           gunShot.destroy();

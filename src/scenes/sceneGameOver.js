@@ -4,6 +4,10 @@ class SceneGameOver extends Phaser.Scene {
   constructor() {
     super({ key: "SceneGameOver" });
   }
+  init(data) {
+    this.score = data.score;
+  }
+
 
   preload() {
     this.load.image("sprBtnRestart", "content/sprBtnRestart.png");
@@ -61,8 +65,16 @@ class SceneGameOver extends Phaser.Scene {
       color: "#ffffffff",
       align: "center",
     });
+    this.subtitle = this.add.text(this.game.config.width * 0.5, 195, "Your Score: " + this.score,{
+      fontFamily: 'monospace',
+      fontSize: 18,
+      fontStyle: 'bold',
+      color: '#fff',
+      align: 'center',
+    })
 
     this.title.setOrigin(0.5);
+    this.subtitle.setOrigin(0.5);
   }
 }
 
