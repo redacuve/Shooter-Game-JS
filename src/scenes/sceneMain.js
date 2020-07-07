@@ -9,6 +9,11 @@ class SceneMain extends Phaser.Scene {
     super({ key: "SceneMain" });
   }
 
+  init(data){
+    //console.log(data.playerSelection);
+    this.playerSelection = data.playerSelection;
+  }
+
   preload() {
     //this.load.image("sprBg0", "assets/sprBg0.png");
     this.load.image("dunes", "assets/dunes.png");
@@ -20,11 +25,11 @@ class SceneMain extends Phaser.Scene {
       frameHeight: 65,
     });
 
-    this.load.spritesheet("sprPlayerP50D", "assets/sprPlayerP50D.png", {
+    this.load.spritesheet("sprPlayerP51D", "assets/sprPlayerP51D.png", {
       frameWidth: 59,
       frameHeight: 53,
     });
-    this.load.spritesheet("sprPlayerP47D", "assets/sprPlayerP47D.png", {
+    this.load.spritesheet("sprPlayerP47", "assets/sprPlayerP47.png", {
       frameWidth: 57,
       frameHeight: 51,
     });
@@ -50,7 +55,7 @@ class SceneMain extends Phaser.Scene {
     this.load.audio("sndExpMid", "assets/sndExpMid.ogg");
     this.load.audio("sndExpShort", "assets/sndExpShort.ogg");
 
-    this.load.audio("sndP50DEng", "assets/sndP50DEng.wav");
+    this.load.audio("sndP51DEng", "assets/sndP51DEng.wav");
 
     this.load.audio("sndPlayerGunShot", "assets/sndPlayerGunShot.wav");
   }
@@ -64,14 +69,14 @@ class SceneMain extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: "sprPlayerP50D",
-      frames: this.anims.generateFrameNumbers("sprPlayerP50D"),
+      key: "sprPlayerP51D",
+      frames: this.anims.generateFrameNumbers("sprPlayerP51D"),
       frameRate: 30,
       repeat: -1,
     });
     this.anims.create({
-      key: "sprPlayerP47D",
-      frames: this.anims.generateFrameNumbers("sprPlayerP47D"),
+      key: "sprPlayerP47",
+      frames: this.anims.generateFrameNumbers("sprPlayerP47"),
       frameRate: 30,
       repeat: -1,
     });
@@ -111,7 +116,7 @@ class SceneMain extends Phaser.Scene {
         this.sound.add("sndExpMid"),
         this.sound.add("sndExpShort"),
       ],
-      engines: [this.sound.add("sndP50DEng")],
+      engines: [this.sound.add("sndP51DEng")],
       playerGunShot: this.sound.add("sndPlayerGunShot"),
     };
 
@@ -119,8 +124,8 @@ class SceneMain extends Phaser.Scene {
       this,
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,
-      "sprPlayerP50D",
-      "sprPlayerP50D"
+      this.playerSelection,
+      this.playerSelection
     );
 
     this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
