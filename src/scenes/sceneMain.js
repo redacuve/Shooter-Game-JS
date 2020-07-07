@@ -10,7 +10,8 @@ class SceneMain extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("sprBg0", "assets/sprBg0.png");
+    //this.load.image("sprBg0", "assets/sprBg0.png");
+    this.load.image("dunes", "assets/dunes.png");
     this.load.image("sprGunShotEnemy", "assets/sprGunShotEnemy.png");
     this.load.image("sprGunShotPlayer", "assets/sprGunShotPlayer.png");
 
@@ -99,6 +100,10 @@ class SceneMain extends Phaser.Scene {
       frameRate: 30,
       repeat: -1,
     });
+
+    this.dunes = this.add.tileSprite(0,0,this.game.config.width,this.game.config.height, 'dunes');
+    this.dunes.setOrigin(0,0);
+    this.dunes.setScrollFactor(0);
 
     this.sfx = {
       explosions: [
@@ -249,12 +254,15 @@ class SceneMain extends Phaser.Scene {
   }
 
   update() {
+    this.dunes.tilePositionY = this.dunes.tilePositionY - 1;
     if (!this.player.getData("isDead")) {
       this.player.update();
       if (this.keyUp.isDown) {
         this.player.moveUp();
+        this.dunes.tilePositionY = this.dunes.tilePositionY - 0.5;
       } else if (this.keyDown.isDown) {
         this.player.moveDown();
+        this.dunes.tilePositionY = this.dunes.tilePositionY + 0.5;
       }
 
       if (this.keyLeft.isDown) {
