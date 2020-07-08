@@ -32,6 +32,9 @@ class SceneMainMenu extends Phaser.Scene {
   }
 
   create() {
+    // OJO
+    this.scene.start("SceneGameOver", { score: 100 });
+    // OJO
     this.charSelected = "sprPlayerP51D";
 
     this.dunes = this.add.tileSprite(
