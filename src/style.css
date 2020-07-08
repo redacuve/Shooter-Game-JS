@@ -4,6 +4,7 @@
   font-weight: 400;
   font-weight: normal;
 }
+
 body {
   display: flex;
   flex-wrap: wrap;
@@ -20,6 +21,7 @@ aside {
 .instructions h3,
 .instructions h4 {
   font-family: "Player2", monospace;
+  text-align: left;
 }
 
 .single-control {
@@ -73,7 +75,7 @@ aside {
 
 .score-text {
   color: red;
-  padding: .3rem;
+  padding: 0.3rem;
 }
 
 .inputElements {
