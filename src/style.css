@@ -6,11 +6,11 @@
 }
 
 #parr {
-  font-family: "Player2";
+  font-family: "Player2", monospace;
 }
 
 .inputElements {
-  font-family: "Player2";
+  font-family: "Player2", monospace;
   font-size: 16px;
 }
 
@@ -18,8 +18,9 @@
   width: 500px;
   height: 380px;
 }
+
 .highscore-container p {
-  font-family: "Player2";
+  font-family: "Player2", monospace;
   font-size: 20px;
   text-align: center;
   width: 100%;
@@ -37,7 +38,7 @@
 }
 
 .score-container {
-  font-family: "Player2";
+  font-family: "Player2", monospace;
   display: grid;
   grid-template-columns: 1fr 3fr 3fr;
   padding: 10px;
@@ -84,15 +85,19 @@
   25% {
     transform: translateX(42px) rotate(-90deg) scale(0.5);
   }
+
   50% {
     transform: translateX(42px) translateY(42px) rotate(-179deg);
   }
+
   50.1% {
     transform: translateX(42px) translateY(42px) rotate(-180deg);
   }
+
   75% {
-    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+    transform: translateX(0) translateY(42px) rotate(-270deg) scale(0.5);
   }
+
   100% {
     transform: rotate(-360deg);
   }

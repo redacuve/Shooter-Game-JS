@@ -1,9 +1,9 @@
 import './style.css';
 
-import Phaser from "phaser";
-import SceneMainMenu from "./scenes/sceneMainMenu";
-import SceneMain from "./scenes/sceneMain";
-import SceneGameOver from "./scenes/sceneGameOver";
+import Phaser from 'phaser';
+import SceneMainMenu from './scenes/sceneMainMenu';
+import SceneMain from './scenes/sceneMain';
+import SceneGameOver from './scenes/sceneGameOver';
 
 const config = {
   type: Phaser.AUTO,
@@ -15,7 +15,7 @@ const config = {
     createContainer: true,
   },
   physics: {
-    default: "arcade",
+    default: 'arcade',
     arcade: {
       gravity: { x: 0, y: 0 },
     },
@@ -25,4 +25,4 @@ const config = {
   roundPixels: true,
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config); // eslint-disable-line no-unused-vars

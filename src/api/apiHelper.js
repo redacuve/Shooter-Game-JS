@@ -1,21 +1,20 @@
-const URL = "https://us-central1-js-capstone-backend.cloudfunctions.net/api";
-const endpoint = "/games";
-const gameID = "fFAwWtXEc9OOLGjmoJNZ";
-const gUrl = (lEndpoint = "") => {
-  if (lEndpoint === "") {
-    return URL + endpoint + "/" + gameID;
-  } else {
-    return URL + endpoint + "/" + gameID + "/" + lEndpoint;
+const URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
+const endpoint = '/games';
+const gameID = 'fFAwWtXEc9OOLGjmoJNZ';
+const gUrl = (lEndpoint = '') => {
+  if (lEndpoint === '') {
+    return `${URL + endpoint}/${gameID}`;
   }
+  return `${URL + endpoint}/${gameID}/${lEndpoint}`;
 };
 
 export async function registerGame(gameName) {
   const bodyData = JSON.stringify({ name: gameName });
   const data = {
-    method: "POST",
+    method: 'POST',
     headers: {
-      accept: "application/json",
-      "content-type": "application/json",
+      accept: 'application/json',
+      'content-type': 'application/json',
     },
     body: bodyData,
   };
@@ -30,22 +29,22 @@ function sortHighScores(array) {
 
 export async function getHighScores() {
   const data = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      accept: "application/json",
-      "content-type": "application/json",
+      accept: 'application/json',
+      'content-type': 'application/json',
     },
   };
-  const response = await fetch(gUrl("scores"), data);
+  const response = await fetch(gUrl('scores'), data);
   const result = await response.json();
   return sortHighScores(result.result);
 }
 
 export function capitalize(str) {
-  if (typeof str !== "string") {
+  if (typeof str !== 'string') {
     return str;
   }
-  let str2 = "";
+  let str2 = '';
   let firstLetter = true;
   let i = 0;
   str = str.toLowerCase();
@@ -62,16 +61,16 @@ export function capitalize(str) {
 }
 
 export async function saveScore(user, score) {
-  const bodyData = JSON.stringify({ user: user, score: score });
+  const bodyData = JSON.stringify({ user, score });
   const data = {
-    method: "POST",
+    method: 'POST',
     headers: {
-      accept: "application/json",
-      "content-type": "application/json",
+      accept: 'application/json',
+      'content-type': 'application/json',
     },
     body: bodyData,
   };
-  const response = await fetch(gUrl("scores"), data);
+  const response = await fetch(gUrl('scores'), data);
   const result = await response.json();
   return result.result;
 }
