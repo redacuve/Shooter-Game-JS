@@ -210,10 +210,10 @@ class SceneMainMenu extends Phaser.Scene {
     this.title = this.add.text(
       this.game.config.width * 0.5,
       128,
-      'WAR DESERT SHOOTER',
+      'DESERT WAR FIGHTERS',
       {
         fontFamily: 'Player2',
-        fontSize: '48px',
+        fontSize: '44px',
         color: '#ffbb00',
         align: 'center',
       },
