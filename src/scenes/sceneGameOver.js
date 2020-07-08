@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import { getHighScores, saveScore } from "../api/apiHelper";
+import { populateHighscores, setToNode } from "./domHandler/gameOverDomHandler";
 
 class SceneGameOver extends Phaser.Scene {
   constructor() {
@@ -88,76 +90,55 @@ class SceneGameOver extends Phaser.Scene {
     this.title.setOrigin(0.5);
     this.subtitle.setOrigin(0.5);
 
-    const inputElements = this.add
-      .dom(this.game.config.width * 0.5, this.game.config.height * 0.24)
-      .createFromCache("nameform");
-
     const leaderboard = this.add
       .dom(this.game.config.width * 0.5, this.game.config.height * 0.55)
       .createFromCache("leaderboard");
 
-    inputElements.addListener("click");
+    const container = leaderboard.getChildByID("list-highscores");
+    const userScores = getHighScores();
+    userScores.then((result) => populateHighscores(container, result));
 
-    inputElements.on("click", (event) => {
-      if (event.target.name === "playButton") {
-        let inputText = inputElements.getChildByName("nameField");
-        if (inputText.value !== "") {
-          inputElements.removeListener("click");
-          inputElements.setVisible(false);
-          console.log(inputText.value);
-        } else {
-          this.tweens.add({
-            targets: inputElements,
-            alpha: 0.2,
-            duration: 250,
-            ease: "Power3",
-            yoyo: true,
-          });
+    if (this.score > 0) {
+      const inputElements = this.add
+        .dom(this.game.config.width * 0.5, this.game.config.height * 0.24)
+        .createFromCache("nameform");
+      inputElements.addListener("click");
+
+      inputElements.on("click", (event) => {
+        if (event.target.name === "playButton") {
+          let inputText = inputElements.getChildByName("nameField");
+          if (inputText.value !== "") {
+            inputElements.removeListener("click");
+            inputElements.setVisible(false);
+            setToNode(
+              container,
+              `<div class="spinner">
+          <div class="cube1"></div>
+          <div class="cube2"></div>`
+            );
+            saveScore(inputText.value, this.score)
+              .then(() => {
+                getHighScores().then((result) =>
+                  populateHighscores(container, result)
+                );
+              })
+              .catch((error) => {
+                setToNode(
+                  container,
+                  `<div class="error-highscores">An Error has occurred. Error message: ${error}. Please try again later.</div>`
+                );
+              });
+          } else {
+            this.tweens.add({
+              targets: inputElements,
+              alpha: 0.2,
+              duration: 250,
+              ease: "Power3",
+              yoyo: true,
+            });
+          }
         }
-      }
-    });
-
-    try {
-      const userScores = [
-        { score: 2130, user: "julian" },
-        { score: 3360, user: "Julian" },
-        { score: 1290, user: "Andrea" },
-        { score: 2340, user: "andrea" },
-        { score: 50, user: "rey" },
-        { score: 3510, user: "Julian" },
-        { score: 90, user: "Julian" },
-        { user: "Marshall Chikari", score: 30 },
-        { score: 15, user: "bbbb" },
-        { score: 330, user: "FORTUNE FARAI MUSEKIWA" },
-        { score: 600, user: "Julian" },
-        { score: 560, user: "FORTUNE FARAI MUSEKIWA" },
-      ];
-      const container = leaderboard.getChildByID("list-highscores");
-      userScores.forEach((score, index) => {
-        const parentNode = document.createElement("div");
-        const positionNode = document.createElement("div");
-        const scoreNode = document.createElement("div");
-        const userNode = document.createElement("div");
-
-        parentNode.classList.add("score-container");
-        positionNode.classList.add("score-position");
-        scoreNode.classList.add("score-score");
-        userNode.classList.add("score-name");
-
-        positionNode.textContent = index + 1;
-        scoreNode.textContent = score.score;
-        userNode.textContent = score.user;
-
-        parentNode.appendChild(positionNode);
-        parentNode.appendChild(scoreNode);
-        parentNode.appendChild(userNode);
-        container.appendChild(parentNode);
       });
-    } catch (error) {
-      const node = document.createElement("div");
-      node.classList.add("lista", "Elemento");
-      node.textContent = error.message;
-      container.appendChild(node);
     }
   }
 }
