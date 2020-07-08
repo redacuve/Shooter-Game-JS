@@ -4,9 +4,76 @@
   font-weight: 400;
   font-weight: normal;
 }
+body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+aside {
+  padding: 0.5rem;
+}
+
+.instructions {
+  min-width: 350px;
+}
+
+.instructions h3,
+.instructions h4 {
+  font-family: "Player2", monospace;
+}
+
+.single-control {
+  font-family: "Player2", monospace;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.single-control img {
+  height: 30px;
+}
+
+.text {
+  margin-left: 1rem;
+}
 
 #parr {
   font-family: "Player2", monospace;
+}
+
+.single-score {
+  font-family: "Player2", monospace;
+  margin-bottom: 0.5rem;
+}
+
+.scores {
+  text-align: center;
+}
+
+#sprSM {
+  width: 61px;
+  height: 51px;
+  background: url("../dist/assets/sprEneSm.png") 0 0;
+  display: inline-block;
+}
+
+#sprMD {
+  width: 79px;
+  height: 55px;
+  background: url("../dist/assets/sprEneMid.png") 0 0;
+  display: inline-block;
+}
+
+#sprBG {
+  width: 143px;
+  height: 99px;
+  background: url("../dist/assets/sprEneBom.png") 0 0;
+  display: inline-block;
+}
+
+.score-text {
+  color: red;
+  padding: .3rem;
 }
 
 .inputElements {
