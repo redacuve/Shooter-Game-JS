@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "Player2";
+  src: url("./fonts/PressStart2P-Regular.ttf");
+  font-weight: 400;
+  font-weight: normal;
+}
+
+body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+aside {
+  padding: 0.5rem;
+}
+
+.instructions {
+  min-width: 350px;
+}
+
+.instructions h3,
+.instructions h4 {
+  font-family: "Player2", monospace;
+  text-align: left;
+}
+
+.single-control {
+  font-family: "Player2", monospace;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.single-control img {
+  height: 30px;
+}
+
+.text {
+  margin-left: 1rem;
+}
+
+#parr {
+  font-family: "Player2", monospace;
+}
+
+.single-score {
+  font-family: "Player2", monospace;
+  margin-bottom: 0.5rem;
+}
+
+.scores {
+  text-align: center;
+}
+
+#sprSM {
+  width: 61px;
+  height: 51px;
+  background: url("../dist/assets/sprEneSm.png") 0 0;
+  display: inline-block;
+}
+
+#sprMD {
+  width: 79px;
+  height: 55px;
+  background: url("../dist/assets/sprEneMid.png") 0 0;
+  display: inline-block;
+}
+
+#sprBG {
+  width: 143px;
+  height: 99px;
+  background: url("../dist/assets/sprEneBom.png") 0 0;
+  display: inline-block;
+}
+
+.score-text {
+  color: red;
+  padding: 0.3rem;
+}
+
+.inputElements {
+  font-family: "Player2", monospace;
+  font-size: 16px;
+}
+
+.highscore-container {
+  width: 500px;
+  height: 380px;
+}
+
+.highscore-container p {
+  font-family: "Player2", monospace;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  height: min-content;
+}
+
+#leaderboard {
+  width: 100%;
+}
+
+#list-highscores {
+  width: 100%;
+  height: 320px;
+  overflow-y: scroll;
+}
+
+.score-container {
+  font-family: "Player2", monospace;
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+  padding: 10px;
+  align-items: center;
+}
+
+.score-position,
+.score-score,
+.score-name {
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.error-highscores {
+  color: red;
+  text-align: center;
+  font-size: 30px;
+}
+
+.spinner {
+  margin: 100px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.cube1,
+.cube2 {
+  background-color: #333;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: sk-cubemove 1.8s infinite ease-in-out;
+}
+
+.cube2 {
+  animation-delay: -0.9s;
+}
+
+@keyframes sk-cubemove {
+  25% {
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+
+  50% {
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+
+  50.1% {
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+
+  75% {
+    transform: translateX(0) translateY(42px) rotate(-270deg) scale(0.5);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
