@@ -60,6 +60,10 @@ In order to be able to save your high score you need to score at least 50pts and
 
 Try to beat the high score. Have fun!
 
+<p align="center">
+  <img src="game.gif" width="450">
+</p>
+
 ## How To Play
 
 You can select between 3 American fighters from WWII, you can play as Mustang, Thunderbolt, or Airacobra pilot.
@@ -68,23 +72,23 @@ Your goal is to be in the first position in the high scoreboard, so as to achiev
 
 ### Planes
 
-<img src="dist/assets/img_trans.gif" style="width: 59px; height: 53px; background: url('dist/assets/sprPlayerP51D.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnP51D.png" >
 <p> P51D Mustang </p>
 
-<img src="dist/assets/img_trans.gif" style="width: 57px; height: 51px; background: url('dist/assets/sprPlayerP47.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnP47.png" >
 <p> P47 Thunderbolt </p>
 
-<img src="dist/assets/img_trans.gif" style="width: 58px; height: 50px; background: url('dist/assets/sprPlayerP47.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnP39.png" >
 <p> P49 Airacobra </p>
 
 
-<img src="dist/assets/img_trans.gif" style="width: 61px; height: 51px; background: url('dist/assets/sprEneSm.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnSm.png" >
 <p> Focke-Wulf Fw 190<br> Gives you 50 pts </p>
 
-<img src="dist/assets/img_trans.gif" style="width: 79px; height: 55px; background: url('dist/assets/sprEneMid.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnMid.png" >
 <p> Messerschmitt Bf 109<br> Gives you 75 pts </p>
 
-<img src="dist/assets/img_trans.gif" style="width: 143px; height: 99px; background: url('dist/assets/sprEneBom.png') 0 0; display:inline-block;">
+<img src="dist/assets/sprBtnBom.png" >
 <p>Junkers Ju 88<br> Gives you 100 pts </p>
 
 ### Screenshots
